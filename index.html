@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/jspsych@7.3.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.1"></script>
     <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.1"></script>
+    <script src="stimuli.js"></script>
     <link href="https://unpkg.com/jspsych@7.3.0/css/jspsych.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -19,7 +20,7 @@
          }
          var sentence={
             type: jsPsychHtmlKeyboardResponse,
-            stimulus: 'You dropped a balloon on a vase',
+            stimulus: jsPsych.timelineVariable('sentence'),
             choices:"space bar"
          }
          var fixation2={
@@ -30,7 +31,7 @@
          }
          var picture={
             type: jsPsychImageKeyboardResponse,
-            stimulus:"vase.jpeg",
+            stimulus: jsPsych.timelineVariable('pic'),
             stimulus_height: 500,
             stimulus_width: 500,
             choices: ['S', 'N', 's', 'n']
@@ -39,7 +40,13 @@
             type: jsPsychHtmlKeyboardResponse,
             stimulus: 'Thank you for participating! Click any key to end the experiment.'
          };
-        jsPsych.run([fixation1, sentence, fixation2,picture,end_experiment]);
+
+         var experiment_procedure={
+            timeline:[fixation1, sentence, fixation2, picture],
+            timeline_variables:stimuli, randomize_order:true
+        };
+
+        jsPsych.run([experiment_procedure,end_experiment]);
         
     </script>
 </body>
