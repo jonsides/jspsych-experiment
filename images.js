@@ -1,4 +1,4 @@
-imagelist=[
+var imagelist=[
 
 'figureS.jpg',
 'cakeS.jpg',
